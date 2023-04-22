@@ -1,0 +1,19 @@
+
+version: 2
+
+sources:
+  - name: staging
+    database: data-eng-375913
+    schema: xetra_ds
+
+    tables:
+      - name: xetra_stocks
+
+models:
+  - name: stg_xetra_stocks
+    description: "A table containing daily stock prices from Xetra"
+    columns:
+      - name: isin
+        description: "The id which uniquely identifies a stock; it is not unique"
+        tests:
+          - not_null

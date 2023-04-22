@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: fact_xetra_stocks
+    description: >
+      Summary of daily stock opening, closing, minimum, maximum, percent change in closing price and total volume traded

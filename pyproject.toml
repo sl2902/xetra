@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "proj-venv"
+version = "1.0.0"
+description = "Data engineering zoomcamp"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [{include = "proj_venv"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+prefect = "^2.10.2"
+prefect-gcp = "^0.4.0"
+dbt-core = "^1.4.5"
+dbt-bigquery = "^1.4.3"
+pandas = "^2.0.0"
+pandas-gbq = "^0.19.1"
+prefect-dbt = "^0.3.1"
+python-dotenv = "^1.0.0"
+jupyter = "^1.0.0"
+ipython = "^8.12.0"
+pyarrow = "^11.0.0"
+google-cloud-storage = "^2.8.0"
+google-cloud = "^0.34.0"
+gcsfs = "2023.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[virtualenvs]
+in-project = true
+path = "project_venv"
