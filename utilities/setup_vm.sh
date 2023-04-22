@@ -26,10 +26,8 @@ export PATH="/usr/local/lib/bin:$PATH"
 
 # clone repo
 cd /
-git clone --depth 1 --filter=blob:none --sparse https://github.com/sl2902/data-engineering-zoomcamp.git;
-cd data-engineering-zoomcamp;
-git sparse-checkout set project
-cd project
+git clone https://github.com/sl2902/xetra.git;
+cd xetra
 
 # create venv
 python3.8.3 -m venv project-env
