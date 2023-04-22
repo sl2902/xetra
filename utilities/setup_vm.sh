@@ -15,10 +15,10 @@ sudo apt-get install -y \
     libbz2-dev \
     libsqlite3-dev
 
-# Download and compile Python 3.8.3 from source
-wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
-tar xzf Python-3.8.3.tgz
-cd Python-3.8.3
+# Download and compile Python 3.8 from source
+wget https://www.python.org/ftp/python/3.8/Python-3.8.tgz
+tar xzf Python-3.8.tgz
+cd Python-3.8
 ./configure --enable-optimizations
 make -j "$(nproc)"
 sudo make altinstall
@@ -30,11 +30,11 @@ git clone https://github.com/sl2902/xetra.git;
 cd xetra
 
 # create venv
-python3.8.3 -m venv project-env
+python3.8 -m venv project-env
 source project-env/bin/activate
 
 # install poetry and dependencies
-curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local/lib python3.8.3 -
+curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local/lib python3.8 -
 poetry install --no-root --without dev,flows
 
 # set env vars
