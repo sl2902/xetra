@@ -97,6 +97,6 @@ jobs:
             memory_unit="Gi",
             timeout=3600,
           )
-          block.save("xetra", overwrite=True)
+          block.save("${{ env.PREFECT_GCP_CREDENTIALS_BLOCK_NAME }}", overwrite=True)
           EOF
           python cloud_run_block.py
