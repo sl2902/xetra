@@ -206,4 +206,4 @@ if __name__ == "__main__":
     except ValueError:
         raise ValueError(f"Invalid date {prefix}. Format is yyyy-mm-dd")
     
-    main(f"{os.environ.get('GCP_PREFIX')}/{prefix}")
+    main(f"{os.environ.get('GCP_PREFIX')}/{args.date}")
