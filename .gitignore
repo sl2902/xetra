@@ -1,0 +1,8 @@
+dbt/logs/
+main-deployment.yaml
+notebook/.ipynb_checkpoints/
+scripts/__pycache__/
+terraform/.terraform.lock.hcl
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
