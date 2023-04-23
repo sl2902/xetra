@@ -3502,6 +3502,25 @@ dev = ["black", "coverage", "flake8", "google-cloud-aiplatform", "google-cloud-b
 secret-manager = ["google-cloud-secret-manager"]
 
 [[package]]
+name = "prefect-github"
+version = "0.1.5"
+description = "Prefect integrations interacting with GitHub"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "prefect-github-0.1.5.tar.gz", hash = "sha256:6f4a9a239251bbccc2032248d05638fc3e1cba98f5b416fd3f56cb809787bb6f"},
+    {file = "prefect_github-0.1.5-py3-none-any.whl", hash = "sha256:f9f1797eadaa76a871808e689936bbfd0d2696668dd0ae7e05ed677eebb22add"},
+]
+
+[package.dependencies]
+prefect = ">=2.0.0"
+sgqlc = ">=15.0"
+
+[package.extras]
+dev = ["black", "coverage", "flake8", "interrogate", "isort", "mkdocs", "mkdocs-gen-files", "mkdocs-material", "mkdocstrings[python]", "mock", "mypy", "pillow", "pre-commit", "pytest", "pytest-asyncio"]
+
+[[package]]
 name = "prefect-shell"
 version = "0.1.5"
 description = "Prefect tasks and subflows for interacting with shell commands."
@@ -5116,4 +5135,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "8b2c98ec526f9e64225e02ae4d9adc4e7d09e4d5ebf6c3093bafe0efdb0a2d53"
+content-hash = "3137ca0187123db484431c14edfb3342d4454b2304ad2e2462980b2e83ed8da4"
