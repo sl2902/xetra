@@ -4,7 +4,7 @@ import sys
 import pandas as pd
 import pandas_gbq
 from dotenv import load_dotenv
-from prefect import flow, task
+from prefect import flow, task, Flow, Parameter
 from prefect_dbt import DbtCoreOperation
 from prefect_gcp import GcpCredentials
 from google.cloud import storage
@@ -32,7 +32,7 @@ def dbt_transform() -> None:
 
     DBT_PATH = os.environ.get("DBT_PATH")
     DBT_HOME = os.environ.get("DBT_HOME")
-    
+
     dbt_path = f"{os.getcwd()}/{DBT_PATH}"
 
     dbt_op = DbtCoreOperation(
@@ -290,6 +290,10 @@ if __name__ == "__main__":
     if args.file is None:
         args.file = ""
     
-    main(f"{os.environ.get('GCP_PREFIX')}/{args.date}", args.file)
+    with Flow("backfilling_flow") as flow:
+        prefect_date = Parameter("date", default="2022-03-25")
+        prefect_file = Parameter("file", default="config/history_dataload.json")
+    
+    main(f"{os.environ.get('GCP_PREFIX')}/{prefect_date}", prefect_file)
     end = time.time()
     print(f"Load to BigQuery completed {(end-start)/60} mins")
