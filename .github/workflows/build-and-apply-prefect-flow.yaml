@@ -6,6 +6,7 @@ env:
   PREFECT_GITHUB_BLOCK_NAME: ${{ secrets.PREFECT_GITHUB_BLOCK_NAME }}
   PREFECT_AGENT_QUEUE_NAME: ${{ secrets.PREFECT_AGENT_QUEUE_NAME }}
   PREFECT_CLOUD_RUN_BLOCK_NAME: ${{ secrets.PREFECT_CLOUD_RUN_BLOCK_NAME }}
+  DEFAULT_DATASET_DATE_ARG: ${{secrets.DEFAULT_DATASET_DATE_ARG}}
 
 on:
   workflow_dispatch:
@@ -41,7 +42,7 @@ jobs:
           poetry install --no-root --without dev
       - name: Build and apply deployment
         run: |
-          poetry run prefect deployment build scripts/gcs_to_bq.py:main --date 2022-04-22\
+          poetry run prefect deployment build scripts/gcs_to_bq.py:main --date $DEFAULT_DATASET_DATE_ARG\
           --name "Github Action Deployment" \
           --version $GITHUB_SHA \
           --work-queue $PREFECT_AGENT_QUEUE_NAME \
