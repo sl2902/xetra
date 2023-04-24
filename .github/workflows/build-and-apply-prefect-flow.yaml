@@ -45,7 +45,6 @@ jobs:
           poetry run prefect deployment build scripts/gcs_to_bq.py:main \
           --name "Github Action Deployment" \
           --version $GITHUB_SHA \
-          --param date=$DEFAULT_DATASET_DATE_ARG \
           --work-queue $PREFECT_AGENT_QUEUE_NAME \
           --storage-block github/$PREFECT_GITHUB_BLOCK_NAME \
           --infra-block cloud-run-job/$PREFECT_CLOUD_RUN_BLOCK_NAME \
