@@ -226,7 +226,7 @@ def pipeline(bucket_name: str, prefix: str, delimiter: str = "") -> int:
 def main(prefix: str, history_file: str) -> None:
     bucket_name = BUCKET_NAME
     datasets_loaded_file = "config/datasets_loaded.csv"
-    if len(history_file) > 0:
+    if not history_file is None:
         for period in historical_load(history_file):
             try:
                 yr, mn = datetime.strptime(period, "%Y-%m").strftime("%Y-%m").split("-")
@@ -287,9 +287,8 @@ if __name__ == "__main__":
     except ValueError:
         raise ValueError(f"Invalid date {prefix}. Format is yyyy-mm-dd")
     
-    if args.file is None:
-        args.file = ""
-    
+    # if args.file is None:
+    #     args.file = ""
     
     main(f"{os.environ.get('GCP_PREFIX')}/{args.date}", args.file)
     end = time.time()
