@@ -17,7 +17,7 @@ The following technologies have been used
 - GitHub Actions
 
 ## Data Pipeline Architecture
-[ELT Architecture](assets/Xetra ETL architecture.png)
+![ELT Architecture](assets/Xetra ETL architecture.png)
 
 ## Data Dictionary
 |Field name    |Type     |Description                               | 
