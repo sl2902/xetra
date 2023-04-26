@@ -63,6 +63,35 @@ The analysis is for the month of March 2022
 git clone https://github.com/sl2902/xetra.git
 ```
 
+2. Account creation
+<details>
+<summary>Google Cloud Platform Account</summary>
+
+Sign up for a free account [here](https://cloud.google.com/free/), and enable billing.
+
+</details>
+
+<details>
+<summary>Google Cloud CLI</summary>
+
+Installation instruction for `gcloud` [here](https://cloud.google.com/sdk/docs/install-sdk).
+
+</details>
+
+<details>
+<summary>Prefect Cloud</summary>
+
+Sign up for a free account [here](https://www.prefect.io).
+
+</details>
+
+<details>
+<summary>Terraform</summary>
+
+You can view the [installation instructions for Terraform here](https://developer.hashicorp.com/terraform/downloads?ajs_aid=f70c2019-1bdc-45f4-85aa-cdd585d465b4&product_intent=terraform)
+
+</details>
+
 2. Setup your Google Cloud environment
 - Create a [Google Cloud Platform project](https://console.cloud.google.com/cloud-resource-manager)
 - Configure Identity and Access Management (IAM) for the service account, giving it the following privileges: 
