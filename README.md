@@ -17,7 +17,7 @@ The following technologies have been used
 - GitHub Actions
 
 ## Data Pipeline Architecture
-![](assets/Xetra_ETL_architecture.png)
+![](assets/Xetra_ELT_architecture.png)
 
 ## Data Dictionary - xetra_stocks
 |Field name    |Type     |Description                               | 
