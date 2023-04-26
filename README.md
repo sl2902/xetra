@@ -39,7 +39,7 @@ The following technologies have been used
 |key           | STRING   |Unique record identifer                  |
 
 ## Dashboard
-![](assets/Xetra_shares_analysis_-_March_2022%20(1).pdf)
+![](assets/Xetra_shares_analysis_March_2022.pdf)
 
 The analysis is for the month of March 2022
 1) The top left card shows the total number of unique shares traded in that month
