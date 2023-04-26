@@ -17,7 +17,7 @@ The following technologies have been used
 - GitHub Actions
 
 ## Data Pipeline Architecture
-![ELT Architecture](assets/Xetra_ETL_architecture.png)
+![](assets/Xetra_ETL_architecture.png)
 
 ## Data Dictionary
 |Field name    |Type     |Description                               | 
@@ -41,7 +41,7 @@ The following technologies have been used
 ## Dashboard
 ![](assets/Xetra_shares_analysis_-_March_2022%20(1).pdf)
 
-The analysis for the month of March 2022
+The analysis is for the month of March 2022
 1) The top left card shows the total number of unique shares traded in that month
 2) The chart at the top middle shows the correlation between average traded volume and average closing price
 3) The chart at the top right corner shows the correlation between the average minimum price and average maximum price
