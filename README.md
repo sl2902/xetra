@@ -57,13 +57,7 @@ The analysis is for the month of March 2022
 4) The chart at the bottom displays the trend for the percent change in closing price
 
 ## Steps to reproduce the project
-1. Clone the repo
-
-```
-git clone https://github.com/sl2902/xetra.git
-```
-
-2. Account creation
+1. Prerequisites
 <details>
 <summary>Google Cloud Platform Account</summary>
 
@@ -92,16 +86,30 @@ You can view the [installation instructions for Terraform here](https://develope
 
 </details>
 
-2. Setup your Google Cloud environment
-- Create a [Google Cloud Platform project](https://console.cloud.google.com/cloud-resource-manager)
-- Configure Identity and Access Management (IAM) for the service account, giving it the following privileges: 
-    - Viewer
-    - Storage Admin 
-    - Storage Object Admin 
-    - BigQuery Admin
-- Download the JSON credentials and save it, e.g. to `~/.gc/<credentials>`
-- Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/install-sdk)
-- Let the [environment variable point to your GCP key](https://cloud.google.com/docs/authentication/application-default-credentials#GAC), authenticate it and refresh the session token
+1. Clone the repo
+
+```
+git clone https://github.com/sl2902/xetra.git
+cd xetra
+```
+
+2. Create a virtual environment 
+```
+python -m venv xeta_venv and activate it with source xeta_venv/bin/activate
+```
+
+3. Install dependencies with poetry
+```
+poetry install --no-root
+```
+
+4. Download the dataset from Kaggle
+```
+mkdir data/xetra/
+cd data/xetra
+wget https://www.kaggle.com/datasets/laxmsun/xetra-stocks/download?datasetVersionNumber=1
+```
+
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS=<path_to_your_credentials>.json
 gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
