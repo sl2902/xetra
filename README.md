@@ -95,7 +95,8 @@ cd xetra
 
 2. Create a virtual environment 
 ```
-python -m venv xeta_venv and activate it with source xeta_venv/bin/activate
+python -m venv xeta_venv 
+source xeta_venv/bin/activate
 ```
 
 3. Install dependencies with poetry
@@ -108,6 +109,7 @@ poetry install --no-root
 mkdir data/xetra/
 cd data/xetra
 wget https://www.kaggle.com/datasets/laxmsun/xetra-stocks/download?datasetVersionNumber=1
+unzip 
 ```
 
 ```bash

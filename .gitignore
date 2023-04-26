@@ -6,3 +6,6 @@ terraform/.terraform.lock.hcl
 terraform/.terraform/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
+
+## project_env
+.project_env
