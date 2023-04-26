@@ -17,7 +17,7 @@ The following technologies have been used
 - GitHub Actions
 
 ## Data Pipeline Architecture
-![ELT Architecture](assets/Xetra ETL architecture.png)
+![ELT Architecture](assets/Xetra_ETL_architecture.png)
 
 ## Data Dictionary
 |Field name    |Type     |Description                               | 
@@ -39,7 +39,7 @@ The following technologies have been used
 |key           | STRING   |Unique record identifer                  |
 
 ## Dashboard
-[Dashboard](assets/Xetra_shares_analysis_-_March_2022%20(1).pdf)
+![](assets/Xetra_shares_analysis_-_March_2022%20(1).pdf)
 
 The analysis for the month of March 2022
 1) The top left card shows the total number of unique shares traded in that month
