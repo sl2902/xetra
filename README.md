@@ -17,7 +17,7 @@ The following technologies have been used
 - GitHub Actions
 
 ## Data Pipeline Architecture
-![ELT Architecture](assets/Xetra ETL architecture.png)
+[ELT Architecture](assets/Xetra ETL architecture.png)
 
 ## Data Dictionary
 |Field name    |Type     |Description                               | 
@@ -50,7 +50,8 @@ The analysis for the month of March 2022
 ## Steps to reproduce the project
 1. Clone the repo
 
-`git clone https://github.com/sl2902/xetra.git`
+```git clone https://github.com/sl2902/xetra.git
+```
 
 2. Setup your Google Cloud environment
 - Create a [Google Cloud Platform project](https://console.cloud.google.com/cloud-resource-manager)
