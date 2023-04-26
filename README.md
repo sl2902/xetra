@@ -1,4 +1,4 @@
-# Xetra trading exchange - Stock price analyis
+# Xetra trading exchange - Stock price analysis
 This project was created as part of finale for the DataTalksClub - Data Engineering Zoomcamp 4 week course. [Xetra](https://www.xetra.com/xetra-en/) is a tradding platform operated by the Frankfurt tock Exchange based in Frankfurt, Germany. It allows trading in all financial instruments including shares, ETFs and ETPs. It has a significant market share throught Europe
 
 ## Problem Description
@@ -19,7 +19,7 @@ The following technologies have been used
 ## Data Pipeline Architecture
 ![](assets/Xetra_ETL_architecture.png)
 
-## Data Dictionary
+## Data Dictionary - xetra_stocks
 |Field name    |Type     |Description                               | 
 |--------------|---------|------------------------------------------|
 |ISIN          | STRING  |Unique security identifier                |
@@ -39,7 +39,7 @@ The following technologies have been used
 |key           | STRING   |Unique record identifer                  |
 
 ## Dashboard
-![](assets/Xetra_shares_analysis_March_2022.pdf)
+![](assets/Xetra_shares_analysis_March_2022.png)
 
 The analysis is for the month of March 2022
 1) The top left card shows the total number of unique shares traded in that month
@@ -50,7 +50,8 @@ The analysis is for the month of March 2022
 ## Steps to reproduce the project
 1. Clone the repo
 
-```git clone https://github.com/sl2902/xetra.git
+```
+git clone https://github.com/sl2902/xetra.git
 ```
 
 2. Setup your Google Cloud environment
