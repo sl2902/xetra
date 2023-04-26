@@ -112,6 +112,20 @@ wget https://www.kaggle.com/datasets/laxmsun/xetra-stocks/download?datasetVersio
 unzip 
 ```
 
+5. Modify the .project_env file
+```
+mv project_env .project_env
+```
+
+    5a. Make sure to add this file to .gitignore
+    5b. Update the following environment variables
+        GCP_PROJECT_ID
+        GCP_SERVICE_ACCOUNT_NAME
+        LOCAL_SERVICE_ACCOUNT_FILE_PATH
+        GCP_REGION
+        PREFECT_KEY
+        PREFECT_API_URL
+        PREFECT_WORKSPACE
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS=<path_to_your_credentials>.json
 gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
