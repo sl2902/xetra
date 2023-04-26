@@ -19,7 +19,12 @@ The following technologies have been used
 ## Data Pipeline Architecture
 ![](assets/Xetra_ELT_architecture.png)
 
-## Data Dictionary - xetra_stocks
+## dbt lineage
+![](assets/dbt_lineage.png)
+
+## Data Dictionary
+The following describes the schema for table - xetra_stocks which
+holds the data coming from the source
 |Field name    |Type     |Description                               | 
 |--------------|---------|------------------------------------------|
 |ISIN          | STRING  |Unique security identifier                |
@@ -37,6 +42,10 @@ The following technologies have been used
 |TradedVolume  | INTEGER |Total volume of shares traded at that time|
 |NumberOfTrades| INTEGER |Number of trades placed at that time      |
 |key           | STRING   |Unique record identifer                  |
+
+The `stg_xetra_stocks` table ensures that no duplicates are loaded; it has a subset of the fields
+from the raw table
+`fact_xetra_stocks` is an aggregated table built on top of the `stg_xetra_stocks`
 
 ## Dashboard
 ![](assets/Xetra_shares_analysis_March_2022.png)
