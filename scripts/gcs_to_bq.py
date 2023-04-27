@@ -22,9 +22,30 @@ from hashlib import sha1
 from calendar import monthrange
 import time
 
+PREFECT_GCP_CREDENTIALS_BLOCK_NAME = "de-prefect-gcpcreds"
+
 def sha(row):
     """Apply sha1() to the key"""
     return sha1(row).hexdigest()
+
+@task
+def gcp_credentials() -> None:
+    with open(SERVICE_ACCOUNT_FILE, "r") as file:
+        json_content = json.load(file)
+
+    service_account_info = {
+        "type": json_content["type"],
+        "project_id": json_content["project_id"],
+        "private_key_id": json_content["private_key_id"],
+        "private_key": json_content["private_key"],
+        "client_email": json_content["client_email"],
+        "client_id": json_content["client_id"],
+        "auth_uri": json_content["auth_uri"],
+        "token_uri": json_content["token_uri"],
+        "auth_provider_x509_cert_url": json_content["auth_provider_x509_cert_url"],
+        "client_x509_cert_url": json_content["client_x509_cert_url"],
+    }
+    GcpCredentials(service_account_info=service_account_info).save("de-prefect-gcpcreds", overwrite=True)
 
 @task
 def dbt_transform() -> None:
@@ -49,7 +70,7 @@ def gcs_to_bq(file: str) -> None:
     """Loading data to BigQuery"""
     # script runs but no data in BigQuery
     gcp_credentials = GcpCredentials.load(
-        os.environ.get("PREFECT_GCP_CREDENTIALS_BLOCK_NAME")
+        PREFECT_GCP_CREDENTIALS_BLOCK_NAME
     )
     try:
         df = pd.read_parquet(f"gs://{BUCKET_NAME}/{file}")
@@ -224,6 +245,7 @@ def pipeline(bucket_name: str, prefix: str, delimiter: str = "") -> int:
 
 @flow(log_prints=True, name="Entry point")
 def main(prefix: str, history_file: str) -> None:
+    gcp_credentials()
     bucket_name = BUCKET_NAME
     datasets_loaded_file = "config/datasets_loaded.csv"
     if len(history_file) > 0:
@@ -247,6 +269,7 @@ def main(prefix: str, history_file: str) -> None:
                     dbt_transform()
                     update_datasets_loaded(datasets_loaded_file, prefix)
     else:
+        prefix = f"{os.environ.get('GCP_PREFIX')}/{prefix}"
         rec = is_dataset_loaded(prefix)
         if not rec is None:
             print(f"History load completed for {rec}")
@@ -269,27 +292,28 @@ if __name__ == "__main__":
     BUCKET_NAME = os.environ.get("GCP_BUCKET_NAME")
     GCP_REGION = os.environ.get("GCP_REGION")
     PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
+    SERVICE_ACCOUNT_FILE = os.environ.get("LOCAL_SERVICE_ACCOUNT_FILE_PATH")
 
     parser = argparse.ArgumentParser("Pipeline to read from GCS and write to BigQuery")
     parser.add_argument("--date", type=str, help="Enter period of load. Format yyyy-mm-dd", default="2022-04-22")
     parser.add_argument("--file", type=str, help="Enter path to historical loading file.")
 
     args = parser.parse_args()
-    if args.date:
-        prefix = args.date
+    date_suffix = args.date
+    history_file = args.file
     
-    if len(prefix) < 10:
-        raise ValueError(f"Invalid date {prefix}. Format is yyyy-mm-dd")
+    if len(date_suffix) < 10:
+        raise ValueError(f"Invalid date {date_suffix}. Format is yyyy-mm-dd")
     if "-" not in args.date or args.date.count("-") != 2:
-        raise ValueError(f"Invalid date {prefix}. Format is yyyy-mm-dd")
+        raise ValueError(f"Invalid date {date_suffix}. Format is yyyy-mm-dd")
     try: 
         parse(args.date)
     except ValueError:
-        raise ValueError(f"Invalid date {prefix}. Format is yyyy-mm-dd")
+        raise ValueError(f"Invalid date {date_suffix}. Format is yyyy-mm-dd")
     
-    if args.file is None:
-        args.file = ""
+    if history_file is None:
+        history_file = ""
     
-    main(f"{os.environ.get('GCP_PREFIX')}/{args.date}", args.file)
+    main(date_suffix, history_file)
     end = time.time()
     print(f"Load to BigQuery completed {(end-start)/60} mins")
