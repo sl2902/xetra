@@ -285,7 +285,7 @@ def main(prefix: str, history_file: str) -> None:
 
 if __name__ == "__main__":
     start = time.time()
-    load_dotenv()
+    # load_dotenv()
 
     DATASET_NAME = os.environ.get("GCP_DATASET_NAME")
     DATASET_TABLE = os.environ.get("GCP_DATASET_TABLE_NAME")

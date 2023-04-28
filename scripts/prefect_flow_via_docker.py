@@ -19,7 +19,7 @@ def deploy_docker_container(docker_container_block) -> None:
         flow=main,
         name="de-prefect-docker",
         infrastructure=docker_container_block,
-        path="/",
+        path="",
         parameters={"prefix": "2022-04-15", "history_file": "null"},
         entrypoint="scripts/gcs_to_bq.py:main",
         ignore_file=".prefectignore",
@@ -29,7 +29,7 @@ def deploy_docker_container(docker_container_block) -> None:
 
 
 if __name__ == "__main__":
-    load_dotenv()
+    # load_dotenv()
     PREFECT_DOCKER_IMAGE = os.environ.get("PREFECT_DOCKER_IMAGE")
     create_docker_image()
     # deploy job on Docker image
