@@ -1,0 +1,29 @@
+FROM python:3.8.3
+
+ARG PREFECT_API_KEY
+ENV PREFECT_API_KEY=$PREFECT_API_KEY
+
+ARG PREFECT_API_URL
+ENV PREFECT_API_URL=$PREFECT_API_URL
+
+ARG GCP_DATASET_NAME
+ENV GCP_DATASET_NAME=$GCP_DATASET_NAME
+
+ARG GCP_DATASET_TABLE_NAME
+ENV GCP_DATASET_TABLE_NAME=$GCP_DATASET_TABLE_NAME
+
+ARG GCP_PROJECT_ID
+ENV GCP_PROJECT_ID=$GCP_PROJECT_ID
+
+ARG GCP_REGION
+ENV GCP_REGION=$GCP_REGION
+
+COPY poetry.lock .
+COPY pyproject.toml .
+
+RUN pip install poetry --trusted-host pypi.python.org --no-cache-dir
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-root --without dev
+
+RUN mkdir scripts
+COPY scripts/ scripts/
