@@ -69,13 +69,20 @@ Note - If you have already done these steps then it is not required.
 - Grant the following roles - Storage Admin + Storage Object Admin + BigQuery Admin
 - Click Add keys, and then crete new key. Download the JSON file
 
+Enable Google authentication
+```
+export GOOGLE_APPLICATION_CREDENTIALS=<path/to/your/service-account-authkeys>.json
+gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
+gcloud auth application-default login
+```
+
 
 </details>
 
 <details>
-<summary>Google Cloud CLI</summary>
+<summary>Google Cloud SDK</summary>
 
-Installation instruction for `gcloud` [here](https://cloud.google.com/sdk/docs/install-sdk).
+Installation instruction [here](https://cloud.google.com/sdk/docs/install-sdk).
 
 </details>
 
@@ -115,27 +122,27 @@ poetry install --no-root
 ```
 mv project_env .project_env
 ```
-    - 4a. Make sure to add this file to .gitignore
+4a. Make sure to add this file to .gitignore
 
 5. Download the dataset from Kaggle
 5a. Either click the Download button on this [page](https://www.kaggle.com/datasets/laxmsun/xetra-stocks) to download
-the dataset. Note - the file when downloaded in this manner is called `archive.zip`
-5b. You could also create a Kaggle API, and use the API to download the file
+the dataset. Note - the file when downloaded is named `archive.zip`
+5b. You could also create a Kaggle API, and use the API to download the file, like so
 ```
 kaggle datasets download -d laxmsun/xetra-stocks
 unzip xetra-stocks.zip
 ```
-5c. Store the file in the following directory
+5c. In the project directory, store the dataset in the following directory
 ```
 mkdir data/xetra/
 cd data/xetra
 ```
-5d. As the zipped file is stored inside a folder called `dataset`. We will copy all the folders inside this folder to `data/xetra`.
+5d. As the zipped file is stored inside a folder called `dataset`. We will copy all the folders inside `dataset` to `data/xetra/`.
 While inside `dataset` directory, run the following
 ```
 cp -R * ../
 ```
-This will copy the files to the `data/xetra` folder.
+This will copy the files to the `data/xetra/` folder.
 5e. Delete the dataset folder
 ```
 rm -rf dataset
@@ -147,27 +154,81 @@ Back in the project directory
 6a. Populate the following global variables in `.project_env` file
 `PREFECT_KEY`
 `PREFECT_WORKSPACE`
-6b. Run the following commands
+
+6b. Run this command so that the variables are exported to the current session
+```
+set -o allexport && source .project_env && set +o allexport
+```
+
+6c. In the project folder, run the following commands on the terminal
 ```
 prefect cloud login -k ${PREFECT_KEY}
 prefect cloud workspace set --workspace ${PREFECT_WORKSPACE} &&\
 prefect config view &&\
 ```
+
 This will return the PREFECT API URL. Update
-`PREFECT_API_URL`
+`PREFECT_API_URL` in `.project_env` file
 
-7. Modify the .project_env file
-
-7b. Update the following environment variables
+7. Update the following environment variables in the `.project_env` file and the `config.json` file
         CONFIG_FILE
         GCP_PROJECT_ID
         GCP_SERVICE_ACCOUNT_NAME
         LOCAL_SERVICE_ACCOUNT_FILE_PATH
         GCP_REGION
+        PREFECT_API_KEY - Only config.json
+        PREFECT_API_URL - Only config.json
+Note - in the `config.json` file, the `GCP_SERVICE_ACCOUNT_NAME` key is not required.
+The `config.json` file is used in the Prefect block script `create_config.py`
 
-8. Enable Google authentication
+8. Run this command so that the variables are exported to the current session
 ```
-export GOOGLE_APPLICATION_CREDENTIALS=<path/to/your/service-account-authkeys>.json
-gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
-gcloud auth application-default login
+set -o allexport && source .project_env && set +o allexport
 ```
+
+9. Run the block scripts
+```
+python scripts/create_config.py
+python create_gcp_credentials.py
+```
+
+10. The files in the `config` folder serve the following purposes
+`datasets_loaded.csv` - Keeps track of which dated datasets have been uploaded to BigQuery
+`history_dataload.json` - Used for one time load as the dataset is static; the format is `load_date :[2022-01, 2022-03]
+Should you wish, you can populate it to include all the available months, which is 2022-01-03 - 2022-04-25
+
+11. Create the GCP storage bucket and GCP BigQuery Dataset
+```
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
+After initializing Terraform, prepare plan to be applied, then deploy the resources
+
+12. Run the Python script that copies the dataset from your local machine to GCP Storage
+Make sure the Python env is activated
+```
+python local_to_gcs.py
+```
+It roughly takes an hour to load all the data
+
+13. The second script could be run in 2 modes:
+13a. You could load all the datasets from Cloud storage to Bigquery, like so.
+```
+python gcs_to_bq.py --history_file config/history_dataload.json
+```
+Make sure you have updated the values as shown in step 10. Or, you could
+just run it for one specific date
+```
+python gcs_to_bq.py --date 2022-03-23
+```
+Note - For some dates, there maybe no data
+
+This step should produce data in the fact table which is called `fact_xetra_stocks`
+
+## Next steps
+
+1. Complete the prefect Dockerization step
+2. Deploy the same code using Cloudrun, Artefact Registry and Github Actions
+3. Adding test cases.
