@@ -1,15 +1,15 @@
 {
-    "GCP_PROJECT_ID": "data-eng-375913",
-    "GCP_REGION": "asia-south1",
+    "GCP_PROJECT_ID": "",
+    "GCP_REGION": "",
     "GCP_PREFIX": "data/xetra",
     "GCP_BUCKET_NAME": "xetra-ds",
     "GCP_DATASET_NAME": "xetra_ds",
     "GCP_DATASET_TABLE_NAME": "xetra_stocks",
-    "PREFECT_API_KEY": "pnu_zyoZUKi0eROpY57K7YunyuSm0BnxXq1pzZfz",
-    "PREFECT_API_URL": "https://api.prefect.cloud/api/accounts/99a992f9-e7fd-4183-b1f1-a0516fbd2441/workspaces/8e0ffa11-17f5-4761-a7fd-ba1322d97e01",
+    "PREFECT_API_KEY": "",
+    "PREFECT_API_URL": "",
     "PREFECT_DOCKER_IMAGE": "sl02/xetra:latest",
     "DBT_PROFILE": "xetra",
     "DBT_HOME": ".dbt",
     "DBT_PATH": "dbt/xetra",
-    "LOCAL_SERVICE_ACCOUNT_FILE_PATH": "/Users/home/data-engineering-zoomcamp/data-eng-375913-850935216d34.json"
+    "LOCAL_SERVICE_ACCOUNT_FILE_PATH": ""
 }
