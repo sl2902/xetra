@@ -187,8 +187,8 @@ set -o allexport && source .project_env && set +o allexport
 
 10. Run the block scripts
 ```
-python scripts/create_config.py
-python scripts/create_gcp_credentials.py
+python blocks/create_config.py
+python blocks/create_gcp_credentials.py
 ```
 
 11. The files in the `config` folder serve the following purposes<br>
@@ -208,19 +208,19 @@ After initializing Terraform, prepare plan to be applied, then deploy the resour
 13. Run the Python script that copies the dataset from your local machine to GCP Storage
 Make sure the Python env is activated
 ```
-python local_to_gcs.py
+python scripts/local_to_gcs.py
 ```
 It roughly takes an hour to load all the data
 
 14. The second script could be run in 2 modes:
 14a. You could load all the datasets from Cloud storage to Bigquery, like so.
 ```
-python gcs_to_bq.py --history_file config/history_dataload.json
+python scripts/gcs_to_bq.py --history_file config/history_dataload.json
 ```
 Make sure you have updated the values as shown in step 10. Or, you could
 just run it for one specific date
 ```
-python gcs_to_bq.py --date 2022-03-23
+python scripts/gcs_to_bq.py --date 2022-03-23
 ```
 Note - For some dates, there maybe no data
 
