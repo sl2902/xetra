@@ -167,14 +167,14 @@ prefect config view &&\
 This will return the PREFECT API URL. Update
 `PREFECT_API_URL` in `.project_env` file
 
-7. Update the following environment variables in the `.project_env` file and the `config.json` file
-        - CONFIG_FILE
-        - GCP_PROJECT_ID
-        - GCP_SERVICE_ACCOUNT_NAME
-        - LOCAL_SERVICE_ACCOUNT_FILE_PATH
-        - GCP_REGION
-        - PREFECT_API_KEY - Only config.json
-        - PREFECT_API_URL - Only config.json
+7. Update the following environment variables in the `.project_env` file and the `config.json` file<br>
+        - CONFIG_FILE<br>
+        - GCP_PROJECT_ID<br>
+        - GCP_SERVICE_ACCOUNT_NAME<br>
+        - LOCAL_SERVICE_ACCOUNT_FILE_PATH<br>
+        - GCP_REGION<br>
+        - PREFECT_API_KEY - Only config.json<br>
+        - PREFECT_API_URL - Only config.json<br>
 Note - in the `config.json` file, the `GCP_SERVICE_ACCOUNT_NAME` key is not required.
 The `config.json` file is used in the Prefect block script `create_config.py`
 
