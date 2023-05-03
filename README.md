@@ -181,23 +181,25 @@ This will return the PREFECT API URL. Update
 Note - in the `config.json` file, the `GCP_SERVICE_ACCOUNT_NAME` key is not required.
 The `config.json` file is used in the Prefect block script `create_config.py`
 
-8. Run this command so that the variables are exported to the current session
+8. Make sure that the profile name you create in `~/.dbt/profiles.yml` is called `xetra`
+
+9. Run this command so that the variables are exported to the current session
 ```
 set -o allexport && source .project_env && set +o allexport
 ```
 
-9. Run the block scripts
+10. Run the block scripts
 ```
 python scripts/create_config.py
 python create_gcp_credentials.py
 ```
 
-10. The files in the `config` folder serve the following purposes
+11. The files in the `config` folder serve the following purposes
 `datasets_loaded.csv` - Keeps track of which dated datasets have been uploaded to BigQuery
 `history_dataload.json` - Used for one time load as the dataset is static; the format is `load_date :[2022-01, 2022-03]
 Should you wish, you can populate it to include all the available months, which is 2022-01-03 - 2022-04-25
 
-11. Create the GCP storage bucket and GCP BigQuery Dataset
+12. Create the GCP storage bucket and GCP BigQuery Dataset
 ```
 cd terraform
 terraform init
@@ -206,15 +208,15 @@ terraform apply
 ```
 After initializing Terraform, prepare plan to be applied, then deploy the resources
 
-12. Run the Python script that copies the dataset from your local machine to GCP Storage
+13. Run the Python script that copies the dataset from your local machine to GCP Storage
 Make sure the Python env is activated
 ```
 python local_to_gcs.py
 ```
 It roughly takes an hour to load all the data
 
-13. The second script could be run in 2 modes:
-13a. You could load all the datasets from Cloud storage to Bigquery, like so.
+14. The second script could be run in 2 modes:
+14a. You could load all the datasets from Cloud storage to Bigquery, like so.
 ```
 python gcs_to_bq.py --history_file config/history_dataload.json
 ```
