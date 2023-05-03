@@ -191,7 +191,7 @@ set -o allexport && source .project_env && set +o allexport
 10. Run the block scripts
 ```
 python scripts/create_config.py
-python create_gcp_credentials.py
+python scripts/create_gcp_credentials.py
 ```
 
 11. The files in the `config` folder serve the following purposes
