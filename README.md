@@ -61,7 +61,14 @@ The analysis is for the month of March 2022
 <details>
 <summary>Google Cloud Platform Account</summary>
 
-Sign up for a free account [here](https://cloud.google.com/free/), and enable billing.
+Note - If you have already done these steps then it is not required.
+
+- Sign up for a free account [here](https://cloud.google.com/free/), and enable billing.
+- Create your project
+- Create a service account under IAM & Admin
+- Grant the following roles - Storage Admin + Storage Object Admin + BigQuery Admin
+- Click Add keys, and then crete new key. Download the JSON file
+
 
 </details>
 
@@ -111,38 +118,56 @@ mv project_env .project_env
     - 4a. Make sure to add this file to .gitignore
 
 5. Download the dataset from Kaggle
+5a. Either click the Download button on this [page](https://www.kaggle.com/datasets/laxmsun/xetra-stocks) to download
+the dataset. Note - the file when downloaded in this manner is called `archive.zip`
+5b. You could also create a Kaggle API, and use the API to download the file
+```
+kaggle datasets download -d laxmsun/xetra-stocks
+unzip xetra-stocks.zip
+```
+5c. Store the file in the following directory
 ```
 mkdir data/xetra/
 cd data/xetra
-wget https://www.kaggle.com/datasets/laxmsun/xetra-stocks/download?datasetVersionNumber=1
-unzip 
-cd ../../
 ```
+5d. As the zipped file is stored inside a folder called `dataset`. We will copy all the folders inside this folder to `data/xetra`.
+While inside `dataset` directory, run the following
+```
+cp -R * ../
+```
+This will copy the files to the `data/xetra` folder.
+5e. Delete the dataset folder
+```
+rm -rf dataset
+cd ../../
+``` 
+Back in the project directory
 
 6. On [Prefect Cloud](https://app.prefect.cloud/) create a workspace and an API Key
-
-    - 6a. Populate the following global variables in `.project_env` file
-        `PREFECT_KEY`
-        `PREFECT_WORKSPACE`
-    - 6b. Run the following commands
-        ```
-        prefect cloud login -k ${PREFECT_KEY}
-        prefect cloud workspace set --workspace ${PREFECT_WORKSPACE} &&\
-        prefect config view &&\
-        ```
-        This will return the PREFECT API URL. Update
-        `PREFECT_API_URL`
-
+6a. Populate the following global variables in `.project_env` file
+`PREFECT_KEY`
+`PREFECT_WORKSPACE`
+6b. Run the following commands
+```
+prefect cloud login -k ${PREFECT_KEY}
+prefect cloud workspace set --workspace ${PREFECT_WORKSPACE} &&\
+prefect config view &&\
+```
+This will return the PREFECT API URL. Update
+`PREFECT_API_URL`
 
 7. Modify the .project_env file
 
-    5b. Update the following environment variables
+7b. Update the following environment variables
+        CONFIG_FILE
         GCP_PROJECT_ID
         GCP_SERVICE_ACCOUNT_NAME
         LOCAL_SERVICE_ACCOUNT_FILE_PATH
         GCP_REGION
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS=<path_to_your_credentials>.json
+
+8. Enable Google authentication
+```
+export GOOGLE_APPLICATION_CREDENTIALS=<path/to/your/service-account-authkeys>.json
 gcloud auth activate-service-account --key-file $GOOGLE_APPLICATION_CREDENTIALS
 gcloud auth application-default login
 ```
