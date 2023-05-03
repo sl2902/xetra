@@ -7,14 +7,11 @@ The goal of the project is to build and end to end data pipeline that will store
 ## Technology Stack 
 The following technologies have been used
 - Google Cloud Storage (GCS) <br>
-- Google Compute Engine <br>
-- Google Cloud Run <br>
 - Google BigQuery<br>
 - Terraform<br>
 - Prefect<br>
 - dbt<br>
 - Google Looker studio <br>
-- GitHub Actions
 
 ## Data Pipeline Architecture
 ![](assets/Xetra_ELT_architecture.png)
