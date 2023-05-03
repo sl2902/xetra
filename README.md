@@ -134,7 +134,7 @@ unzip xetra-stocks.zip
 mkdir data/xetra/
 cd data/xetra
 ```
-5d. As the zipped file is stored inside a folder called `dataset`. We will copy all the folders inside `dataset` to `data/xetra/`.
+5d. Inside the zipped file is a folder called `dataset`. We will copy all the dated folders inside `dataset` to `data/xetra/`.
 While inside `dataset` directory, run the following
 ```
 cp -R * ../
