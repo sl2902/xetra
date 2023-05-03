@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from gcs_to_bq import main
 from prefect.deployments import Deployment
 from prefect.infrastructure import DockerContainer
+from prefect.blocks.system import JSON
 
 prefect_docker_block = "de-prefect-docker"
 
@@ -19,9 +20,9 @@ def deploy_docker_container(docker_container_block) -> None:
         flow=main,
         name="de-prefect-docker",
         infrastructure=docker_container_block,
-        path="",
-        parameters={"prefix": "2022-04-15", "history_file": "null"},
-        entrypoint="scripts/gcs_to_bq.py:main",
+        path="scripts/",
+        # parameters={"prefix": "2022-04-15", "history_file": "null"},
+        # entrypoint="scripts/gcs_to_bq.py:main",
         ignore_file=".prefectignore",
         skip_upload=True,
     )
@@ -30,7 +31,8 @@ def deploy_docker_container(docker_container_block) -> None:
 
 if __name__ == "__main__":
     # load_dotenv()
-    PREFECT_DOCKER_IMAGE = os.environ.get("PREFECT_DOCKER_IMAGE")
+    env = JSON.load("de-prefect-config")
+    PREFECT_DOCKER_IMAGE = env.value["PREFECT_DOCKER_IMAGE"]
     create_docker_image()
     # deploy job on Docker image
     docker_container_block = DockerContainer.load(prefect_docker_block)
