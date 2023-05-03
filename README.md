@@ -191,9 +191,9 @@ python scripts/create_config.py
 python scripts/create_gcp_credentials.py
 ```
 
-11. The files in the `config` folder serve the following purposes
-`datasets_loaded.csv` - Keeps track of which dated datasets have been uploaded to BigQuery
-`history_dataload.json` - Used for one time load as the dataset is static; the format is `load_date :[2022-01, 2022-03]
+11. The files in the `config` folder serve the following purposes<br>
+`datasets_loaded.csv` - Keeps track of which dated datasets have been uploaded to BigQuery<br>
+`history_dataload.json` - Used for one time load as the dataset is static; the format is `load_date :[2022-01, 2022-03]<br>
 Should you wish, you can populate it to include all the available months, which is 2022-01-03 - 2022-04-25
 
 12. Create the GCP storage bucket and GCP BigQuery Dataset
