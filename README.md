@@ -145,14 +145,14 @@ This will copy the files to the `data/xetra/` folder.
 rm -rf dataset
 cd ../../
 ``` 
-Back in the project directory
+You sgould be back in the project directory
 
 6. On [Prefect Cloud](https://app.prefect.cloud/) create a workspace and an API Key
 6a. Populate the following global variables in `.project_env` file
 `PREFECT_KEY`
 `PREFECT_WORKSPACE`
 
-6b. Run this command so that the variables are exported to the current session
+6b. Run this command in the project directory so that the variables are exported to the current session
 ```
 set -o allexport && source .project_env && set +o allexport
 ```
@@ -167,7 +167,7 @@ prefect config view &&\
 This will return the PREFECT API URL. Update
 `PREFECT_API_URL` in `.project_env` file
 
-7. Update the following environment variables in the `.project_env` file and the `config.json` file<br>
+7. Update the following environment variables in the `.project_env` file and in the `config.json` file<br>
         - CONFIG_FILE<br>
         - GCP_PROJECT_ID<br>
         - GCP_SERVICE_ACCOUNT_NAME<br>
@@ -180,7 +180,7 @@ The `config.json` file is used in the Prefect block script `create_config.py`
 
 8. Make sure that the profile name you create in `~/.dbt/profiles.yml` is called `xetra`
 
-9. Run this command so that the variables are exported to the current session
+9. Run this command in the project directory so that the variables are exported to the current session
 ```
 set -o allexport && source .project_env && set +o allexport
 ```
@@ -194,7 +194,7 @@ python blocks/create_gcp_credentials.py
 11. The files in the `config` folder serve the following purposes<br>
 `datasets_loaded.csv` - Keeps track of which dated datasets have been uploaded to BigQuery<br>
 `history_dataload.json` - Used for one time load as the dataset is static; the format is `load_date :[2022-01, 2022-03]<br>
-Should you wish, you can populate it to include all the available months, which is 2022-01-03 - 2022-04-25
+Should you wish, you can populate it to include all the available months, which ranges from 2022-01-03 - 2022-04-25 inclusive
 
 12. Create the GCP storage bucket and GCP BigQuery Dataset
 ```
@@ -203,14 +203,14 @@ terraform init
 terraform plan
 terraform apply
 ```
-After initializing Terraform, prepare plan to be applied, then deploy the resources
+After initializing Terraform, prepare plan to be applied, if asked for the bucket name enter `xetra-ds`, then deploy the resources
 
 13. Run the Python script that copies the dataset from your local machine to GCP Storage
 Make sure the Python env is activated
 ```
 python scripts/local_to_gcs.py
 ```
-It roughly takes an hour to load all the data
+It roughly takes 40-45 minutes to load all the data. Of course this depends on your network speed
 
 14. The second script could be run in 2 modes:
 14a. You could load all the datasets from Cloud storage to Bigquery, like so.
@@ -222,7 +222,7 @@ just run it for one specific date
 ```
 python scripts/gcs_to_bq.py --date 2022-03-23
 ```
-Note - For some dates, there maybe no data
+Note - For some dates, there maybe no data. In the first approach, it could take roughly 3 hours
 
 This step should produce data in the fact table which is called `fact_xetra_stocks`
 
