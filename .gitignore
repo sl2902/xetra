@@ -1,3 +1,4 @@
+data/
 dbt/logs/
 main-deployment.yaml
 notebook/.ipynb_checkpoints/
