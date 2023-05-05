@@ -2,7 +2,8 @@
 variable "GCP_PROJECT_ID" {}
 variable "GCP_REGION" {}
 # variable "GCP_COMPUTE_ENGINE_REGION" {}
-# variable "GCP_DATASET_NAME" {}
+variable "GCP_DATASET_NAME" {}
+variable "GCP_BUCKET_NAME" {}
 variable "COMPUTE_ENGINE_NAME" {}
 variable "COMPUTE_ENGINE_MACHINE_TYPE" {}
 variable "COMPUTE_ENGINE_REGION" {}
